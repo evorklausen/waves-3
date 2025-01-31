@@ -1,0 +1,227 @@
+/* Prism Dark Theme */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #f8f8f2;
+  background: none;
+  font-family: "JetBrains Mono", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+}
+
+/* Override any Prism transitions */
+code[class*="language-"] *,
+pre[class*="language-"] * {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6272a4;
+}
+
+.token.punctuation {
+  color: #f8f8f2;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #50fa7b;
+}
+
+.token.boolean,
+.token.number {
+  color: #bd93f9;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #f1fa8c;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #66d9ef;
+}
+
+.token.keyword {
+  color: #ff79c6;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #f1fa8c;
+}
+
+/* Panel styling */
+.preview-panel {
+  background: white;
+  border-radius: 0.75rem;
+  margin: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.code-panel {
+  position: relative;
+  background: #282a36;
+  border-radius: 0.75rem;
+  margin: 1rem;
+  overflow: hidden;
+}
+
+.chat-panel {
+  border-radius: 0.75rem;
+  margin: 1rem;
+  background: #1a1a1a;
+}
+
+/* Code panel textarea */
+.code-panel textarea {
+  font-family: "JetBrains Mono", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: inherit;
+  line-height: inherit;
+  outline: none;
+  border: none;
+}
+
+.code-panel pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.message-bubble {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: messageAppear 0.3s ease forwards;
+}
+
+.message-bubble.user {
+  background: #3b3b3b;
+}
+
+/* Smooth text transitions */
+.code-panel pre code,
+.preview-panel {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.code-panel.updating pre code,
+.preview-panel.updating {
+  opacity: 0;
+}
+
+/* Message transitions */
+@keyframes messageAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: inline-flex;
+  gap: 4px;
+  padding: 12px;
+}
+
+.typing-indicator span {
+  width: 4px;
+  height: 4px;
+  background: #666;
+  border-radius: 50%;
+  animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Text animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.code-panel pre code span,
+.preview-panel span {
+  display: inline-block;
+  animation: slideIn 0.2s ease-out forwards;
+}
+
+/* Stagger the animation for each character */
+.code-panel pre code span:nth-child(n),
+.preview-panel span:nth-child(n) {
+  animation-delay: calc(0.02s * var(--char-index, 0));
+}
+
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-black {
+  color: #000;
+} 
