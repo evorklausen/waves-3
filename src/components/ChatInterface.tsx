@@ -21,7 +21,8 @@ export function ChatInterface() {
   const [conversationId, setConversationId] = useState<string>(Date.now().toString());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [apiKey, setApiKey] = useState(""); // Added API key state
+  const [apiKey, setApiKey] = useState(""); 
+  const [model, setModel] = useState("deepseek-v3");
 
   useEffect(() => {
     const savedKey = localStorage.getItem("llama_api_key");
@@ -150,15 +151,44 @@ ${preview}
 
   return (
     <div className="flex flex-col h-screen bg-[#121212] text-white">
-      {/* API Key Input */}
-      <div className="p-4 border-b">
-        <Input
-          type="text"
-          placeholder="Enter your Llama API key"
-          value={apiKey}
-          onChange={handleApiKeyChange}
-          className="w-full"
-        />
+      {/* API Key Input and Model Selector */}
+      <div className="p-4 border-b flex gap-2 items-center">
+        <div className="flex-1">
+          <Input
+            type="password"
+            placeholder="Enter your Llama API key"
+            value={apiKey}
+            onChange={handleApiKeyChange}
+            className="w-full"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <Input
+            type="text"
+            placeholder="Model name"
+            value={model}
+            onChange={(e) => {
+              setModel(e.target.value);
+              // Restart server when model changes
+              fetch('/api/restart', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ model: e.target.value }),
+              });
+            }}
+            className="w-32"
+          />
+          <a
+            href="https://console.llamaapi.com/81c726ed-9605-40c0-81f0-feff07a5a860/credits"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white"
+          >
+            ?
+          </a>
+        </div>
       </div>
 
       {/* Beta Notice */}

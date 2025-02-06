@@ -133,7 +133,7 @@ app.post('/api/chat', async (req, res) => {
     const messages = [
       {
         role: 'system',
-        content: `You are a helpful HTML code generator called Waves (made in estonia), and you model name is DeepSeek V3, a chinese chat model. Important rules:
+        content: `You are a helpful HTML code generator called Waves (made in estonia). Important rules:
 1. ALWAYS wrap your code in \`\`\`html tags
 2. For images, always use placeholder picsum images.
 3. When modifying existing code, preserve the structure and only change what's needed
