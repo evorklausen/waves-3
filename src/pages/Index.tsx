@@ -1,8 +1,8 @@
+
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ChatInterface } from "@/components/ChatInterface";
 import { Preview } from "@/components/Preview";
-import { CodeEditorPanel } from "@/components/CodeEditor";
 
 const initialCode = `
 <!DOCTYPE html>
@@ -28,14 +28,11 @@ export default function Index() {
       <Navbar />
       <main className="container pt-14 h-screen">
         <div className="grid grid-cols-12 gap-4 h-[calc(100vh-4rem)] py-4">
-          <div className="col-span-3 bg-card rounded-lg shadow-sm border overflow-hidden">
+          <div className="col-span-4 bg-card rounded-lg shadow-sm border overflow-hidden">
             <ChatInterface />
           </div>
-          <div className="col-span-5 bg-card rounded-lg shadow-sm border overflow-hidden">
+          <div className="col-span-8 bg-card rounded-lg shadow-sm border overflow-hidden">
             <Preview code={code} />
-          </div>
-          <div className="col-span-4 bg-card rounded-lg shadow-sm border overflow-hidden">
-            <CodeEditorPanel code={code} onChange={setCode} />
           </div>
         </div>
       </main>
