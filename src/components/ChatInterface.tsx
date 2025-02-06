@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DOMPurify from 'dompurify';
 import { Preview } from './Preview';
+import { Input } from "./ui/input"; // Added import for Input component
+
 
 interface Message {
   content: string;
@@ -19,6 +21,18 @@ export function ChatInterface() {
   const [conversationId, setConversationId] = useState<string>(Date.now().toString());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [apiKey, setApiKey] = useState(""); // Added API key state
+
+  useEffect(() => {
+    const savedKey = localStorage.getItem("llama_api_key");
+    if (savedKey) setApiKey(savedKey);
+  }, []);
+
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newKey = e.target.value;
+    setApiKey(newKey);
+    localStorage.setItem("llama_api_key", newKey);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +48,7 @@ export function ChatInterface() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': apiKey // Added API key to headers
         },
         body: JSON.stringify({ 
           prompt: userMessage,
@@ -47,7 +62,7 @@ export function ChatInterface() {
       }
 
       const data = await response.json();
-      
+
       // Check if the response contains code
       const hasCode = data.content && (
         data.content.includes('<') || 
@@ -60,11 +75,11 @@ export function ChatInterface() {
         setPreview(data.content);
         setCode(data.content);
       }
-      
+
       if (data.conversationId) {
         setConversationId(data.conversationId);
       }
-      
+
       // Always show the chat response
       if (data.chatText) {
         setMessages(prev => [...prev, { content: data.chatText, isUser: false }]);
@@ -135,6 +150,17 @@ ${preview}
 
   return (
     <div className="flex flex-col h-screen bg-[#121212] text-white">
+      {/* API Key Input */}
+      <div className="p-4 border-b">
+        <Input
+          type="text"
+          placeholder="Enter your Llama API key"
+          value={apiKey}
+          onChange={handleApiKeyChange}
+          className="w-full"
+        />
+      </div>
+
       {/* Beta Notice */}
       <div className="bg-[#7C3AED] text-white text-center py-2 px-4">
         This is in beta, glitches will occur. Made by{' '}
