@@ -32,7 +32,7 @@ export default function Index() {
             <ChatInterface />
           </div>
           <div className="col-span-9 bg-card rounded-lg shadow-sm border overflow-hidden">
-            <Preview code={code} />
+            <Preview code={code} language="html" />
           </div>
         </div>
       </main>
