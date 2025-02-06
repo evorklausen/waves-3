@@ -168,14 +168,16 @@ ${preview}
             placeholder="Model name"
             value={model}
             onChange={(e) => {
-              setModel(e.target.value);
+              const newModel = e.target.value;
+              setModel(newModel);
+              console.log(`Switched to model ${newModel}`);
               // Restart server when model changes
               fetch('/api/restart', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ model: e.target.value }),
+                body: JSON.stringify({ model: newModel }),
               });
             }}
             className="w-32"
