@@ -96,17 +96,33 @@ const MAX_HISTORY = 5;
 
 function parseResponse(content, originalPrompt) {
   try {
+    let code = '';
+    let chatText = '';
+
+    // First try to find code blocks
     const codeMatch = content.match(/```(?:html|css|js|javascript)\n([\s\S]*?)```/i);
-    let code = codeMatch ? codeMatch[1].trim() : '';
-    
-    const afterCodeText = content.split('```').pop().trim();
-    
-    const chatText = afterCodeText || `Here's the HTML code I generated based on your request: "${originalPrompt}". Let me know if you need any modifications!`;
+    if (codeMatch) {
+      code = codeMatch[1].trim();
+      chatText = content.split('```').pop().trim();
+    } else {
+      // If no code blocks, look for HTML-like content
+      const htmlMatch = content.match(/<[^>]+>/);
+      if (htmlMatch) {
+        // Extract the largest HTML-like chunk
+        const parts = content.split(/(?=<)/).filter(part => part.includes('>'));
+        if (parts.length > 0) {
+          code = parts.join('').trim();
+          chatText = content.replace(code, '').trim();
+        }
+      } else {
+        chatText = content;
+      }
+    }
 
     return {
       code: code,
       content: code,
-      chatText: chatText
+      chatText: chatText || "Code generated. Let me know if you need any modifications!"
     };
   } catch (error) {
     console.error('Parse Response Error:', error);
