@@ -28,10 +28,10 @@ export default function Index() {
       <Navbar />
       <main className="container pt-14 h-screen">
         <div className="grid grid-cols-12 gap-4 h-[calc(100vh-4rem)] py-4">
-          <div className="col-span-4 bg-card rounded-lg shadow-sm border overflow-hidden">
+          <div className="col-span-3 bg-card rounded-lg shadow-sm border overflow-hidden">
             <ChatInterface />
           </div>
-          <div className="col-span-8 bg-card rounded-lg shadow-sm border overflow-hidden">
+          <div className="col-span-9 bg-card rounded-lg shadow-sm border overflow-hidden">
             <Preview code={code} />
           </div>
         </div>
